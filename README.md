@@ -20,7 +20,7 @@ You will need to host the bot as we do not provide hosting as of now. We recomme
 Make sure you have Python >= 3.7.x installed before running this code. Copy and paste the code below in any bash-supported terminal environment. If you do not know what that is then just open your preferred terminal of choice.
 
 ```bash
-git clone https://github.com/MilitaryLotus30/MalFinderTM
+git clone https://github.com/MilitaryLotus30/MalFinderTM.git
 cd MalFinderTM
 pip install -r requirements.txt
 ```
