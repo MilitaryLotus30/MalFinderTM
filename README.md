@@ -15,7 +15,9 @@ This bot uses VirusTotal's API to scan your links or files automatically inside 
 
 ### Installing
 
-You will need to host the bot as we do not provide hosting as of now.
+You will need to host the bot as we do not provide hosting as of now. We recommend using a Linux self hosted or cloud server. [Microsoft Azure](<https://azure.microsoft.com/en-us/free/search/>) is a good way to start with 12 free months of hosting services.
+
+Make sure you have Python 3.xx installed before running this code. Copy and paste the code below in any bash supported terminal environment. If you do not know what that is then just open your preferred terminal of choice.
 
 ```bash
 git clone https://github.com/MilitaryLotus30/MalFinderTM
