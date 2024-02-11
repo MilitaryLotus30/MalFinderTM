@@ -13,9 +13,9 @@ This bot uses VirusTotal's API to scan your links or files automatically inside 
 Other than that, there's no need to use this part.
 
 ```bash
-Git clone this repo
+git clone https://github.com/MilitaryLotus30/MalFinderTM
 pip install discord.py
-Python filename.py
+python main.py
 ```
 
 ## Running the Tests
