@@ -42,7 +42,7 @@ If you're worried about downloading a file or clicking on a link, this bot can h
 (placeholder of image of the bot in action)
 
 ## Contributing
-[![Discord Presence](https://lanyard.cnrad.dev/api/:id)](https://discord.com/users/:id)
+[![Discord Presence](https://lanyard.cnrad.dev/api/:591534252307513347)](https://discord.com/users/:id)
 
 Adding usernames of contributors here later.
 
