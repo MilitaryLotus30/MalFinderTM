@@ -23,14 +23,18 @@ Make sure you have Python >= 3.7.x installed before running this code. Copy and 
 git clone https://github.com/MilitaryLotus30/MalFinderTM
 cd MalFinderTM
 pip install -r requirements.txt
-python3 main.py
 ```
-
 Then open `main.py` with a text editor of your choice and put in the details for your VirusTotal API key and your Discord bot Application Token of your chosen bot.
 
 [How to get your VirusTotal API key](<https://youtu.be/9ftKViq71eQ>)
 
 [How to get your Discord bot Application Token/Create a bot and invite to your server. Make sure to give it administrator permissions so that it can monitor any channel](<https://youtu.be/4XswiJ1iUaw>)
+
+Then, you can start the bot via
+
+```bash
+python main.py
+```
 
 ## Running the Tests
 
