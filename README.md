@@ -26,7 +26,7 @@ pip install -r requirements.txt
 ```
 Then, do the following:
 1. Rename "config.json.txt" to "config.json" (on Windows, make sure to have file extensions shown!)
-How to show file extensions on Windows [10](<https://youtu.be/PoTah9YBG2Y>) and [11](<https://youtu.be/z5FBLAagPIc>)
+Here is how to show file extensions on Windows [10](<https://youtu.be/PoTah9YBG2Y>) and [11](<https://youtu.be/z5FBLAagPIc>)
 2. Open "config.json" and input your values.
 
 [How to get your VirusTotal API key](<https://youtu.be/9ftKViq71eQ>)
