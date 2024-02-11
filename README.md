@@ -53,7 +53,9 @@ Adding usernames of contributors here later.
 
 ## License
 
-This project is licensed under the [CC0 1.0 Universal](LICENSE.md) Creative Commons License - see the [LICENSE.md](LICENSE.md) file for details.
+This project is licensed under the [Code Credit License](LICENSE.md) - see the [LICENSE.md](LICENSE.md) file for details.
+
+In short, this license allows you to do whatever you want with the code, as long as credit is given.
 
 ## Acknowledgments
 
