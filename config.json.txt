@@ -1,6 +1,6 @@
 {
     "token": "Please star https://github.com/MilitaryLotus30/MalFinderTM/tree/main if this helped you!",
-    "application_id": "guilded-bot-id",
+    "application_id": "application-id",
 
     "support_server": "supportserver-id",
 
