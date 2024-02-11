@@ -1,5 +1,5 @@
 [![forthebadge](http://forthebadge.com/images/badges/built-with-love.svg)](https://github.com/MilitaryLotus30/MalFinderTM/)
-
+[![NoTextToSpeech](https://dcbadge.vercel.app/api/server/INVITEID)](https://discord.gg/ntts)
 
 # MalFinder™
 
