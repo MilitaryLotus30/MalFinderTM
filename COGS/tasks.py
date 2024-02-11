@@ -12,15 +12,15 @@ class tasks(commands.Cog):
         while True:
             try:
                 while True:
-                    # [activity, the game, delay]
-                    guild_count = len(await self.bot.fetch_guilds())
+                    # [activity, the game, delay, status]
+                    guild_count = len(self.bot.guilds)
                     statuses = [
-                        [discord.ActivityType.watching, f"{guild_count} guild{'s' if guild_count != 1 else ''}!", 60],
-                        [discord.ActivityType.playing, f"https://github.com/MilitaryLotus30/MalFinderTM/", 60]
+                        [discord.ActivityType.watching, f"{guild_count} guild{'s' if guild_count != 1 else ''}!", 60, discord.Status.online],
+                        [discord.ActivityType.playing, f"https://github.com/MilitaryLotus30/MalFinderTM/", 60, discord.Status.online]
                     ]
                     for status in statuses:
                         try:
-                            await self.bot.change_presence(discord.Activity(type=status[0], name=status[1]))
+                            await self.bot.change_presence(status=status[3], activity=discord.Activity(type=status[0], name=status[1]))
                             self.bot.info(f"Status changed to {self.bot.COLORS.item_name}{status[1]}{self.bot.COLORS.normal_message} with activity {self.bot.COLORS.item_name}{status[0].name}{self.bot.COLORS.normal_message} for {self.bot.COLORS.item_name}{status[2]}{self.bot.COLORS.normal_message} seconds")
                             await asyncio.sleep(status[2])
                         except Exception as e:
