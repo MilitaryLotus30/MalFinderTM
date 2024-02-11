@@ -1,15 +1,11 @@
-# 
+# MalFinderTM 
 
-One Paragraph of the project description
+MalFinder™ A bot that has the ability to scan links and files for malware using virustotal, eas6and simple
 
-Initially appeared on
-[gist](https://gist.github.com/PurpleBooth/109311bb0361f32d87a2). But the page cannot open anymore so that is why I have moved it here.
 
 ## Getting Started
 
-These instructions will give you a copy of the project up and running on
-your local machine for development and testing purposes. See deployment
-for notes on deploying the project on a live system.
+This bot uses virustotals API to scan your links or files inside discord, you heard it right! no longer getting out of discord, just give the link or file and you'll get the scanned results right away
 
 
 
@@ -32,8 +28,7 @@ Simply give a link or file to the bot, it's going to scan the files for malware 
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code
-of conduct, and the process for submitting pull requests to us.
+Adding Usernames of Contributors here later
 
 ## License
 
@@ -43,8 +38,8 @@ details
 
 ## Acknowledgments
 
-  - Hat tip to anyone whose code is used
-  - Inspiration
-  - etc
+  - This bot was created because of hackathon event on NTTS's server
+  - A team of 5 people helped on this project 
+  - Wish us luck
 
 <3
