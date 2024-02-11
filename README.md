@@ -1,5 +1,4 @@
-[![forthebadge](http://forthebadge.com/images/badges/built-with-love.svg)](http://forthebadge.com)
-[![Discord][npm-image]][npm-url]
+[![forthebadge](http://forthebadge.com/images/badges/built-with-love.svg)](https://github.com/MilitaryLotus30/MalFinderTM/edit/main/README.md)
 
 
 # MalFinder™
@@ -42,7 +41,3 @@ This project is licensed under the [CC0 1.0 Universal](LICENSE.md) Creative Comm
 - Wish us luck!
 
 <3
-
-
-[npm-url]: https://npmjs.org/package/datadog-metrics
-[npm-image]: https://img.shields.io/npm/v/datadog-metrics.svg?style=flat-square
