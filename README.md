@@ -7,20 +7,21 @@ MalFinder™ is a bot that has the ability to automatically scan the given links
 
 ## Getting Started
 
-This bot uses VirusTotal's API to scan your links or files automatically inside Discord. You heard it right! No longer do you need to leave Discord. Just provide the link or file, and you'll get the scanned results right away.
+This bot uses VirusTotal's API to scan your links or files automatically inside Discord. You heard it right! No longer do you need to leave Discord. Just send a link or file anywhere the bot can read messages and it'll start getting the scanned results to you right away.
 
-### Installing (if you want to host this bot for your own)
-Other than that, there's no need to use this part.
+### Installing
+
+You will need to host the bot as we do not provide hosting as of now.
 
 ```bash
 git clone https://github.com/MilitaryLotus30/MalFinderTM
 pip install discord.py
-python main.py
+python3 main.py
 ```
 
 ## Running the Tests
 
-Simply give a link or file to the bot, and it will scan the files for malware and provide the scan results.
+Simply send a link or file in any of the chats and it will scan the files or website for malware and provide the scan results with the VirusTotal scan results link.
 
 ### Sample Tests
 
@@ -37,7 +38,7 @@ This project is licensed under the [CC0 1.0 Universal](LICENSE.md) Creative Comm
 ## Acknowledgments
 
 - This bot was created because of a hackathon event on NTTS's server.
-- A team of 5 people helped on this project.
+- A team of 4 people helped on this project.
 - Wish us luck!
 
 <3
