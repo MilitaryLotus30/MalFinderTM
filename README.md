@@ -1,15 +1,16 @@
 # MalFinderTM 
 
-MalFinder™ A bot that has the ability to scan links and files for malware using virustotal, eas6and simple
+MalFinder™ A bot that has the ability to automatically scan the given links and files for malware using virustotal, easy and simple
 
 
 ## Getting Started
 
-This bot uses virustotals API to scan your links or files inside discord, you heard it right! no longer getting out of discord, just give the link or file and you'll get the scanned results right away
+This bot uses virustotals API to scan your links or files automatically inside discord, you heard it right! no longer getting out of discord, just give the link or file and you'll get the scanned results right away
 
 
 
-### Installing
+### Installing if you want to host this bot for your owm
+other than that no need to use this part
 
 ```Git clone this repo```
 
