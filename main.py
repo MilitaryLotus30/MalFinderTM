@@ -158,7 +158,7 @@ def _tracebackprint(error: Exception):
 
 bot = commands.Bot(
     command_prefix=getprefix,
-    bot_id = CONFIGS.botid,
+    application_id = CONFIGS.applicationid,
     owner_ids=CONFIGS.owners,
     help_command=None
 )
