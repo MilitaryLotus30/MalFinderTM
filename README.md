@@ -23,6 +23,11 @@ pip install requirements.txt
 python3 main.py
 ```
 
+Then open `main.py` with a text editor of your choice and put in the details for your VirusTotal API key and your Discord bot Application Token of your chosen bot.
+
+[How to get your VirusTotal API key](<https://youtu.be/9ftKViq71eQ>)
+[How to get your Discord bot Application Token/Create a bot and invite to your server. Make sure to give it administrator permissions so that it can monitor any chanel](<https://youtu.be/4XswiJ1iUaw>)
+
 ## Running the Tests
 
 Simply send a link or file in any of the channels that the bot has access to and it will scan the files or website for malware and provide the scan results with the VirusTotal link of the scan.
