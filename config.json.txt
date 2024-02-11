@@ -1,0 +1,14 @@
+{
+    "token": "Please star https://github.com/MilitaryLotus30/MalFinderTM/tree/main if this helped you!",
+    "application_id": "guilded-bot-id",
+
+    "support_server": "supportserver-id",
+
+    "default_prefix": "!",
+
+    "owners": ["list of owner ids"],
+
+    "server_join_leave": "channel-id-for-logs (THIS CAN BE NULL TO DISABLE!)",
+
+    "virustotal_api_key": "Your virustotal api key"
+}

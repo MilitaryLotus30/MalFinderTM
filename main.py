@@ -1,129 +1,204 @@
+debug_mode = False
+
 import discord
 from discord.ext import commands
-import aiohttp
-import os
-import re
 
-virustotal_api_key = 'YOUR_VIRUSTOTAL_API_KEY'
-discord_token = "YOUR DISCORD BOT TOKEN"
+from colorama import Fore, Back, Style, init as coloramainit
+coloramainit(autoreset=True)
 
-bot = commands.Bot(command_prefix='!') #added so we can work on commands later on if needed
+import json, os, glob, logging, traceback, re, signal, platform, sys
+import logging.handlers
+from datetime import datetime
 
-@bot.event
-async def on_guild_join(guild):
-    await check_admin_permissions(guild)
+class COLORS():
+    '''
+    Logging colors
+    '''
+    # Reset all styles
+    reset = Style.RESET_ALL
+    # Timestamp
+    timestamp = f"{Style.BRIGHT}{Fore.LIGHTBLACK_EX}"
+    # Normal message text
+    normal_message = Fore.WHITE
 
-async def check_admin_permissions(guild):
-    me = guild.me
-    if not me.guild_permissions.administrator:
-        print("Error: Bot does not have administrator privileges on the server.")
-        await bot.close()
+    # [DISCORD]
+    discord_logs = Fore.LIGHTYELLOW_EX
+    # [INFO]
+    info_logs = Fore.CYAN
+    # [COGS]
+    cog_logs = Fore.BLUE
+    # [COMMAND]
+    command_logs = Fore.BLUE
+    # [SUCCESS]
+    success_logs = Fore.LIGHTGREEN_EX
+    # [ERROR]
+    error_logs = Fore.RED
+    # [WARN]
+    warn_logs = "\033[38;2;255;165;0m" # This is orange!
 
-async def scan_with_virustotal(resource):
-    try:
-        url = 'https://www.virustotal.com/vtapi/v2/url/scan'
-        params = {'apikey': virustotal_api_key, 'url': resource}
-        async with aiohttp.ClientSession() as cs:
-            async with cs.post(url, data=params) as resp:
-                resp.raise_for_status()
-                return await resp.json()
-    except Exception as e:
-        print(f"Error scanning with VirusTotal: {e}")
-        write_to_log(f"Error scanning with VirusTotal: {e}")
-        return None
+    # Normal item names (inputted text from user usually is an item)
+    item_name = Fore.LIGHTBLUE_EX
+    # A user's name
+    user_name = Fore.LIGHTCYAN_EX
 
-async def get_scan_results(resource):
-    try:
-        api_key = 'YOUR_VIRUSTOTAL_API_KEY'
-        url = 'https://www.virustotal.com/vtapi/v2/url/report'
-        params = {'apikey': api_key, 'resource': resource}
-        async with aiohttp.ClientSession() as cs:
-            async with cs.get(url, params=params) as resp:
-                resp.raise_for_status()
-                return await resp.json()
-    except Exception as e:
-        print(f"Error getting scan results from VirusTotal: {e}")
-        write_to_log(f"Error getting scan results from VirusTotal: {e}")
-        return None
+# Configure directories
+cogspath = "COGS\\"
+cogspathpy = [os.path.basename(f) for f in glob.glob(f'{cogspath}*.py')]
+cogs = [f'{cogspath[:-1]}.' + os.path.splitext(f)[0] for f in cogspathpy]
+logs_dir = 'logs'
+errors_dir = os.path.join(logs_dir, 'errors')
+if not os.path.exists(logs_dir):
+    os.makedirs(logs_dir)
+if not os.path.exists(errors_dir):
+    os.makedirs(errors_dir)
+
+# Configure the loggers
+# Discord Logs -> Console
+glogger = logging.getLogger('discord')
+glogger.setLevel(logging.DEBUG if debug_mode else logging.INFO)
+gconsole_handler = logging.StreamHandler()
+gconsole_handler.setLevel(logging.DEBUG)
+gformatter = logging.Formatter(f"{COLORS.timestamp}[{datetime.utcnow().strftime('%Y/%m/%d %H:%M:%S.%f')[:-3]} UTC]{COLORS.reset} {COLORS.discord_logs}[DISCORD]{COLORS.normal_message} %(message)s")
+gconsole_handler.setFormatter(gformatter)
+glogger.addHandler(gconsole_handler)
+# Console -> Log Files
+class IncrementalRotatingFileHandler(logging.handlers.RotatingFileHandler):
+    def doRollover(self):
+        filename = os.path.basename(self.baseFilename).split('.')[0]
+        current_log_num = int(filename) if filename.isdigit() else 0
+        next_log_num = current_log_num + 1
+        while os.path.exists(os.path.join(os.path.dirname(self.baseFilename), f"{next_log_num}.txt")):
+            next_log_num += 1
+        new_log_path = os.path.join(os.path.dirname(self.baseFilename), f"{next_log_num}.txt")
+        self.stream.close()
+        self.stream = None
+        os.rename(self.baseFilename, new_log_path)
+        super().doRollover()
+console_logger = logging.Logger(name="console")
+handler = IncrementalRotatingFileHandler(
+    os.path.join(logs_dir, f"latest.txt"),
+    maxBytes=10*1024*1024, # 10mb
+    backupCount=100  # Keep up to 100 old log files
+)
+console_logger.addHandler(handler)
+glogger.addHandler(handler)
+
+class CONFIGS():
+    '''
+    Configs to start the bot.
+    '''
+    with open(f'config.json', 'r') as config:
+        configdata = json.load(config)
+    token:str = configdata['token']
+    applicationid:str = configdata['application_id']
+    supportserverid:str = configdata['support_server']
+    defaultprefix:str = configdata['default_prefix']
+    owners:list = configdata['owners']
+    join_leave_logs:str|None = configdata['server_join_leave']
+    virustotal_api_key:str = configdata['virustotal_api_key']
+    error_logs_dir = errors_dir
+    cogs_dir = cogspath
+
+async def getprefix(bot: commands.Bot, message: discord.Message) -> list:
+    '''
+    Get the prefix of a server.
+    '''
+    return [CONFIGS.defaultprefix]
+
+def _print(*args, **kwargs):
+    timestamp = f"{COLORS.timestamp}[{datetime.utcnow().strftime('%Y/%m/%d %H:%M:%S.%f')[:-3]} UTC]{COLORS.reset}"
+    if args:
+        args = (timestamp + " " + str(args[0]),) + args[1:]
+    else:
+        args = (timestamp,)
+    print(*args, **kwargs)
+    def remove_formatting(text):
+        ansi_escape = re.compile(r'\x1B\[[0-?]*[ -/]*[@-~]')
+        formatted_text = ansi_escape.sub('', text)
+        return formatted_text
+    console_logger.info(remove_formatting(" ".join(args)))
+
+def _infoprint(*args, **kwargs):
+    if args: args = (f"{COLORS.info_logs}[INFO]{COLORS.normal_message}" + " " + str(args[0]),) + args[1:]
+    else: args = (f"{COLORS.info_logs}[INFO]{COLORS.normal_message}",)
+    _print(*args, **kwargs)
+
+def _warnprint(*args, **kwargs):
+    if args: args = (f"{COLORS.warn_logs}[WARN]{COLORS.normal_message}" + " " + str(args[0]),) + args[1:]
+    else: args = (f"{COLORS.warn_logs}[WARN]{COLORS.normal_message}",)
+    _print(*args, **kwargs)
+
+def _errorprint(*args, **kwargs):
+    if args: args = (f"{COLORS.error_logs}[ERROR]{COLORS.normal_message}" + " " + str(args[0]),) + args[1:]
+    else: args = (f"{COLORS.error_logs}[ERROR]{COLORS.normal_message}",)
+    _print(*args, **kwargs)
+
+def _successprint(*args, **kwargs):
+    if args: args = (f"{COLORS.success_logs}[SUCCESS]{COLORS.normal_message}" + " " + str(args[0]),) + args[1:]
+    else: args = (f"{COLORS.success_logs}[SUCCESS]{COLORS.normal_message}",)
+    _print(*args, **kwargs)
+
+def _tracebackprint(error: Exception):
+    separator_line = "-" * 60
+    
+    traceback_lines = traceback.format_exception(error, error, error.__traceback__)
+
+    console_logger.info(separator_line)
+    print(separator_line)
+
+    errortimestamp = datetime.utcnow().strftime('%Y/%m/%d %H:%M:%S.%f')[:-3] + " UTC"
+
+    for line in traceback_lines:
+        for subline in line.split('\n'):
+            print(f"{COLORS.timestamp}[{errortimestamp}]{COLORS.reset} {COLORS.error_logs}[ERROR]{COLORS.normal_message} {subline}")
+            console_logger.info(f"[{errortimestamp}] [ERROR] {subline}")
+    
+    console_logger.info(separator_line)
+    print(separator_line)
+
+bot = commands.Bot(
+    command_prefix=getprefix,
+    bot_id = CONFIGS.botid,
+    owner_ids=CONFIGS.owners,
+    help_command=None
+)
+bot.CONFIGS = CONFIGS
+bot.COLORS = COLORS
+# Logging
+bot.print = _print
+bot.info = _infoprint
+bot.error = _errorprint
+bot.warn = _warnprint
+bot.success = _successprint
+bot.traceback = _tracebackprint
 
 @bot.event
 async def on_ready():
-    print('Bot is ready.')
+    for cog in cogs:
+        try:
+            await bot.load_extension(cog)
+            bot.print(f'{COLORS.cog_logs}[COGS] {COLORS.normal_message}Loaded cog {COLORS.item_name}{cog}')
+        except commands.errors.ExtensionAlreadyLoaded:
+            pass
 
-@bot.event
-async def on_message(message):
-    if message.author == bot.user:
-        return
+    bot.success(f'Bot ready! Logged in as {COLORS.user_name}{bot.user}')
 
-    # Check for attachments
-    if message.attachments:
-        for attachment in message.attachments:
-            result = await scan_with_virustotal(attachment.url)
-            if result:
-                await message.channel.send(f"Scanning attachment: {attachment.filename}")
-                scan_id = result.get('scan_id')
-                while True:
-                    scan_result = get_scan_results(scan_id)
-                    if scan_result and scan_result.get('response_code') == 1:
-                        positives = scan_result.get('positives')
-                        detection = "Detected" if positives > 0 else "Not detected"
-                        permalink = scan_result.get('permalink')
-                        await save_to_log(message, detection, permalink)
-                        await send_scan_result(message.channel, attachment.filename, detection, permalink)
-                        break
-                    else:
-                        await message.channel.send("Error retrieving scan results.")
-                        write_to_log(f"Error retrieving scan results for attachment: {attachment.url}")
-                        break
-            else:
-                await message.channel.send("Error scanning attachment.")
-                write_to_log("Error scanning attachment.")
-                break
+if __name__ == '__main__':
+    console_logger.info("\n")
+    bot.info("Starting bot...")
 
-    # Check for URLs in message content
-    urls = re.findall(r'(https?:((//)|(\\\\))+[\\w\\d:#@%/;$()~_?\\+-=\\\\\\.&]*)', message.content)
-    for url in urls:
-        result = scan_with_virustotal(url)
-        if result:
-            await message.channel.send(f"Scanning link: {url}")
-            scan_id = result.get('scan_id')
-            while True:
-                scan_result = get_scan_results(scan_id)
-                if scan_result and scan_result.get('response_code') == 1:
-                    positives = scan_result.get('positives')
-                    detection = "Detected" if positives > 0 else "Not detected"
-                    permalink = scan_result.get('permalink')
-                    await save_to_log(message, detection, permalink)
-                    await send_scan_result(message.channel, url, detection, permalink)
-                    break
-                else:
-                    await message.channel.send("Error retrieving scan results.")
-                    write_to_log(f"Error retrieving scan results for link: {url}")
-                    break
-        else:
-            await message.channel.send("Error scanning link.")
-            write_to_log("Error scanning link.")
+    def on_bot_stopped(*args, **kwargs):
+        bot.info("Bot stopped")
+        console_logger.info("\n")
+        sys.exit(0)
+    if platform.system() in ["Darwin", "Linux"]:
+        signal.signal(signal.SIGHUP, on_bot_stopped)
+    elif platform.system() in ["Windows"]:
+        signal.signal(signal.SIGINT, on_bot_stopped) # Captures Ctrl + C, sadly can't capture console close (at least not easily)
 
-    await bot.process_commands(message)
-
-async def save_to_log(message, detection, permalink):
-    with open('log.txt', 'a') as file:
-        file.write(f"Message: {message.jump_url}, Detection: {detection}, VirusTotal: {permalink}\n")
-
-async def send_scan_result(channel, resource, detection, permalink):
-    color = discord.Color.red() if detection == "Detected" else discord.Color.green()
-    embed = discord.Embed(title=f"Scan results for {resource}", color=color)
-    embed.add_field(name="Detection", value=detection, inline=False)
-    embed.add_field(name="View full scan", value=f"[here]({permalink})", inline=False)
-    await channel.send(embed=embed)
-
-def write_to_log(message):
-    with open('log.txt', 'a') as file:
-        file.write(f"{message}\n")
-
-# Check if log.txt exists, if not, create it
-if not os.path.exists('log.txt'):
-    with open('log.txt', 'w') as file:
-        file.write('')
-
-bot.run(discord_token)
+    try:
+        bot.run(CONFIGS.token)
+    except Exception as e:
+        bot.traceback(e)
+        bot.error("Bot crashed")
+    on_bot_stopped()
