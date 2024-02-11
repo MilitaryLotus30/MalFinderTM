@@ -14,7 +14,7 @@ class events(commands.Cog):
 
     @commands.Cog.listener("on_message")
     async def messagemoment(self, message: discord.Message):
-        if self.bot.user.id in message.raw_user_mentions and len(message.raw_user_mentions) == 1:
+        if self.bot.user.id in message.raw_mentions and len(message.raw_user_mentions) == 1:
             if message.content.strip() == f"@{self.bot.user.display_name}":
                 try:
                     await message.reply(embed=discord.Embed(title="That's Me!",description=f"Hi, {message.author.mention}! My prefix is `{(await (self.bot.command_prefix)(self.bot, message))[0]}`.\nPlease check `{(await (self.bot.command_prefix)(self.bot, message))[0]}help` for more info."), private=message.private)
