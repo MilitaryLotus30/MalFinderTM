@@ -42,3 +42,7 @@ This project is licensed under the [CC0 1.0 Universal](LICENSE.md) Creative Comm
 - Wish us luck!
 
 <3
+
+
+[npm-url]: https://npmjs.org/package/datadog-metrics
+[npm-image]: https://img.shields.io/npm/v/datadog-metrics.svg?style=flat-square
