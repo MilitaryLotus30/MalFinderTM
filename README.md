@@ -1,5 +1,5 @@
 [![forthebadge](http://forthebadge.com/images/badges/built-with-love.svg)](http://forthebadge.com)
-
+[![Discord][npm-image]][npm-url]
 
 
 # MalFinder™
