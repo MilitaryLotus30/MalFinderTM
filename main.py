@@ -10,6 +10,10 @@ import json, os, glob, logging, traceback, re, signal, platform, sys
 import logging.handlers
 from datetime import datetime
 
+intents = discord.Intents.default()
+intents.message_content = True
+intents.members = True
+
 class COLORS():
     '''
     Logging colors
@@ -160,7 +164,8 @@ bot = commands.Bot(
     command_prefix=getprefix,
     application_id = CONFIGS.applicationid,
     owner_ids=CONFIGS.owners,
-    help_command=None
+    help_command=None,
+    intents=intents
 )
 bot.CONFIGS = CONFIGS
 bot.COLORS = COLORS
