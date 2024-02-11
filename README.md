@@ -1,3 +1,7 @@
+[![forthebadge](http://forthebadge.com/images/badges/built-with-love.svg)](http://forthebadge.com)
+
+
+
 # MalFinder™
 
 MalFinder™ is a bot that has the ability to automatically scan the given links and files for malware using VirusTotal, making it easy and simple.
