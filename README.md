@@ -42,6 +42,7 @@ If you're worried about downloading a file or clicking on a link, this bot can h
 (placeholder of image of the bot in action)
 
 ## Contributing
+[![Discord Presence](https://discordlookup.mesavirep.xyz/v1/user/591534252307513347)](https://discord.com/users/591534252307513347)
 
 Adding usernames of contributors here later.
 
