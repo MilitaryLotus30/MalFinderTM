@@ -11,7 +11,7 @@ VirusTotal does not have a 100% accuracy all of the time. False positives and fa
 
 ## Getting Started
 
-This bot uses VirusTotal's API to scan your links or files automatically inside Discord. You heard it right! No longer do you need to leave Discord. Just send a link or file anywhere the bot can read messages and it'll start getting the scanned results to you as soon as it can.
+This bot uses VirusTotal's API to scan your links or files automatically inside Discord. You heard it right! No longer do you need to leave Discord. Just send a link or file anywhere the bot can read messages and it'll start getting the scanned results to you as soon as it can. The bot will log all it's scanned files,links and errors into a file named log.txt and will print them out aswell.
 
 ### Installing
 
@@ -19,7 +19,7 @@ You will need to host the bot as we do not provide hosting as of now.
 
 ```bash
 git clone https://github.com/MilitaryLotus30/MalFinderTM
-pip install discord.py
+pip install requirements.txt
 python3 main.py
 ```
 
