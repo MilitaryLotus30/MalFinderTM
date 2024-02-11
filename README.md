@@ -1,4 +1,4 @@
-[![forthebadge](http://forthebadge.com/images/badges/built-with-love.svg)](https://github.com/MilitaryLotus30/MalFinderTM/edit/main/README.md)
+[![forthebadge](http://forthebadge.com/images/badges/built-with-love.svg)](https://github.com/MilitaryLotus30/MalFinderTM/)
 
 
 # MalFinder™
