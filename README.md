@@ -60,7 +60,7 @@ In short, this license allows you to do whatever you want with the code, as long
 
 ## Acknowledgments
 
-- This bot was created for a hackathon event held on the NTTS's Discord server.
+- This bot was created for a hackathon event held on the NTTS Discord server.
 - A team of 4 people helped on this project.
 - Wish us luck!
 
