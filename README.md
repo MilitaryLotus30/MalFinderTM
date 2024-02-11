@@ -1,27 +1,28 @@
 [![forthebadge](http://forthebadge.com/images/badges/built-with-love.svg)](https://github.com/MilitaryLotus30/MalFinderTM/)
+
 [![NoTextToSpeech](https://dcbadge.vercel.app/api/server/ntts)](https://discord.gg/ntts)
 
 # MalFinder™
 
-MalFinder™ is a bot that has the ability to automatically scan the given links and files for malware using VirusTotal, making it easy and simple.
+MalFinder™ is a bot that can automatically scan the given links and files for malware using VirusTotal, making it easy and simple.
 
-## Warning ⚠️
-
-VirusTotal does not have a 100% accuracy all of the time. False positives and false negatives can occur so always stay vigilant and cautious.
+> [!WARNING]
+> VirusTotal does not have 100% accuracy. False positives and false negatives can occur so always stay vigilant and cautious.
 
 ## Getting Started
 
-This bot uses VirusTotal's API to scan your links or files automatically inside Discord. You heard it right! No longer do you need to leave Discord. Just send a link or file anywhere the bot can read messages and it'll start getting the scanned results to you as soon as it can. The bot will log all it's scanned files, links and errors into a file named log.txt and will print them out aswell.
+This bot uses VirusTotal's API to scan your links or files automatically inside Discord. You heard it right! No longer do you need to leave Discord. Just send a link or file anywhere the bot can read messages and it'll start getting the scanned results to you as soon as it can. The bot will log all its scanned files, links, and errors into a file named log.txt and will print them out as well.
 
 ### Installing
 
-You will need to host the bot as we do not provide hosting as of now. We recommend using a Linux self hosted or cloud server. [Microsoft Azure](<https://azure.microsoft.com/en-us/free/search/>) is a good way to start with 12 free months of hosting services.
+You will need to host the bot as we do not provide hosting as of now. We recommend using a Linux self-hosted or cloud server. [Microsoft Azure](<https://azure.microsoft.com/en-us/free/search/>) is a good way to start with 12 free months of hosting services.
 
-Make sure you have Python 3.xx installed before running this code. Copy and paste the code below in any bash supported terminal environment. If you do not know what that is then just open your preferred terminal of choice.
+Make sure you have Python >= 3.7.x installed before running this code. Copy and paste the code below in any bash-supported terminal environment. If you do not know what that is then just open your preferred terminal of choice.
 
 ```bash
 git clone https://github.com/MilitaryLotus30/MalFinderTM
-pip install requirements.txt
+cd MalFinderTM
+pip install -r requirements.txt
 python3 main.py
 ```
 
@@ -42,8 +43,6 @@ If you're worried about downloading a file or clicking on a link, this bot can h
 (placeholder of image of the bot in action)
 
 ## Contributing
-
-
 Adding usernames of contributors here later.
 
 ## License
