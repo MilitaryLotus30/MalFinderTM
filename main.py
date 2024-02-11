@@ -4,10 +4,20 @@ import aiohttp
 import os
 import re
 
-virustotal_api_key = 'VIRUSTOTAL_API_KEY'
-discord_token = "DISCORD_BOT_TOKEN"
+virustotal_api_key = 'YOUR_VIRUSTOTAL_API_KEY'
+discord_token = "YOUR DISCORD BOT TOKEN"
 
-bot = commands.Bot(command_prefix='!')
+bot = commands.Bot(command_prefix='!') #added so we can work on commands later on if needed
+
+@bot.event
+async def on_guild_join(guild):
+    await check_admin_permissions(guild)
+
+async def check_admin_permissions(guild):
+    me = guild.me
+    if not me.guild_permissions.administrator:
+        print("Error: Bot does not have administrator privileges on the server.")
+        await bot.close()
 
 async def scan_with_virustotal(resource):
     try:
