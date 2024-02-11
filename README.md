@@ -24,7 +24,9 @@ git clone https://github.com/MilitaryLotus30/MalFinderTM.git
 cd MalFinderTM
 pip install -r requirements.txt
 ```
-Then open `main.py` with a text editor of your choice and put in the details for your VirusTotal API key and your Discord bot Application Token of your chosen bot.
+Then, do the following:
+1. Rename "config.json.txt" to "config.json" (on Windows, make sure to have file extensions shown!)
+2. Open "config.json" and input your values.
 
 [How to get your VirusTotal API key](<https://youtu.be/9ftKViq71eQ>)
 
